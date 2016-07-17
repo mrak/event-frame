@@ -1,5 +1,4 @@
 'use strict';
-/** @module: event-frame */
 (function (root, factory) {
   if (typeof exports === 'object' && typeof module !== 'undefined') {
     module.exports = factory(global)
@@ -55,6 +54,7 @@
    * Restrict events to an exact origin. An origin consists of the protocol, host, and port. Defaults to `*` which applies to any origin.
    */
   function EventFrame (options) {
+    var self = this
     var listeners = {}
     var callbacks = {}
     var origin = options.origin || '*'
@@ -116,33 +116,120 @@
       delete callbacks[data.reply]
     }
 
+    /**
+     * @function
+     * @memberof EventFrame
+     * @instance
+     * @description
+     * Begin listening for incoming events from the given frame.
+     * Normally you will not need to execute this method, as the constructor
+     * calls it implicitly
+     * @param {Window} win The browser window on which to listen to incoming `message` events.
+     * @returns {EventFrame}
+     */
     function start (win) {
       addEventListener(win || root, 'message', onmessage)
+      return self
     }
 
+    /**
+     * @function
+     * @memberof EventFrame
+     * @instance
+     * @description
+     * Stop listening for incoming events from the given frame.
+     * This is good for "teardown" purposes.
+     * @param {Window} win The browser window on which to stop listening to incoming `message` events.
+     * @returns {EventFrame}
+     */
     function stop (win) {
       removeEventListener(win || root, 'message', onmessage)
+      return self
     }
 
+    /**
+     * @function
+     * @memberof EventFrame
+     * @instance
+     * @example
+     * eventLine.on('myEventName', function () {
+     *   console.log('recieved the following arguments:', arguments);
+     * });
+     * @example
+     * // With a callback
+     * eventLine.on('myEventName', function (data, callback) {
+     *   console.log('recieved the following data:', data);
+     *   callback('Thank you very much for your data');
+     * });
+     * @description Register a `listener` to handle an incoming `event`.
+     * @param {string} event The name of the event to add a listener for.
+     * @param {function} listener The function to handle the incoming event.
+     * @returns {EventFrame}
+     */
     function on (event, listener) {
       listeners[event] = listeners[event] || []
       listeners[event].push(listener)
+      return self
     }
 
+    /**
+     * @function
+     * @memberof EventFrame
+     * @instance
+     * @example
+     * var event = 'myEventname'
+     * var listener = function () {
+     *   console.log('recieved the following arguments:', arguments);
+     * }
+     * eventLine.on(event, listener);
+     * eventLine.off(event, listener);
+     * @description Unregister a `listener` that handles an incoming `event`.
+     * @param {string} event The name of the event to remove a listener from.
+     * @param {function} listener The function that handles the incoming event.
+     * @returns {EventFrame}
+     */
     function off (event, listener) {
       var i
       var eventListeners = listeners[event]
 
-      if (!eventListeners) { return }
+      if (!eventListeners) { return self }
 
       for (i = 0; i < eventListeners.length; i++) {
         if (eventListeners[i] === listener) {
           eventListeners.splice(i, 1)
-          return
+          return self
         }
       }
     }
 
+    /**
+     * @function
+     * @memberof EventFrame
+     * @instance
+     * @example
+     * // Emit an event with no arguments
+     * eventLine.emit('just letting you know');
+     * @example
+     * // Emit an event with some data
+     * eventline.emit('My name is', name);
+     * @example
+     * // Emit an event with a callback
+     * eventline.emit('What did you have for dinner?', function (item) {
+     *   console.log('They had', item, 'for dinner');
+     * });
+     * @example
+     * // Emit an event with data and a callback
+     * eventline.emit('Here is my key. Can I have yours?', myFakeKey, function (theirKey) {
+     *   console.log('Muahah, my key was fake. Here is theirs:', theirKey);
+     * });
+     * @description emit an `event`, optionally with data.
+     * @param {string} event The name of the event to emit.
+     * @param {...*=} argument Zero or more arguments to pass along with the event.
+     * @param {function=} callback
+     * A callback that can be invoked from the listener on the receiving side of the event.
+     * The callback must be the last parameter given.
+     * @returns {EventFrame}
+     */
     function emit (event) {
       var id, message
       var data = {
@@ -160,6 +247,7 @@
 
       message = pragma + JSON.stringify(data)
       frame.postMessage(message, origin)
+      return self
     }
 
     this.start = start
