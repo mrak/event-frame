@@ -1,5 +1,5 @@
 {
-  "name": "event-line",
+  "name": "event-frame",
   "version": "1.0.0",
   "description": "An event abstraction over browser window messaging.",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrak/event-line.git"
+    "url": "git+https://github.com/mrak/event-frame.git"
   },
   "keywords": [
     "postMessage",
@@ -18,11 +18,10 @@
   "author": "Eric Mrak <mail@ericmrak.info>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mrak/event-line/issues"
+    "url": "https://github.com/mrak/event-frame/issues"
   },
-  "homepage": "https://github.com/mrak/event-line#readme",
+  "homepage": "https://github.com/mrak/event-frame#readme",
   "devDependencies": {
-    "standard": "7.1.1",
-    "standard-format": "2.2.1"
+    "standard": "*"
   }
 }
