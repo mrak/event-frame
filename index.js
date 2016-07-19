@@ -8,6 +8,7 @@
     root.EventFrame = factory(root)
   }
 })(this, function (root) {
+  /** @module: event-frame */
   var pragma = '/*event-frame*/'
 
   function addEventListener (element, event, fn, capture) {
@@ -36,6 +37,7 @@
   }
 
   /**
+   * @name EventFrame
    * @class
    * @classdesc
    * `EventFrame` serves as an event-emitter between the current page and another iframe or window.
@@ -53,7 +55,7 @@
    * @param {string=} options.origin
    * Restrict events to an exact origin. An origin consists of the protocol, host, and port. Defaults to `*` which applies to any origin.
    */
-  function EventFrame (options) {
+  var exports = function (options) {
     var self = this
     var listeners = {}
     var callbacks = {}
@@ -152,12 +154,12 @@
      * @memberof EventFrame
      * @instance
      * @example
-     * eventLine.on('myEventName', function () {
+     * eventFrame.on('myEventName', function () {
      *   console.log('recieved the following arguments:', arguments);
      * });
      * @example
      * // With a callback
-     * eventLine.on('myEventName', function (data, callback) {
+     * eventFrame.on('myEventName', function (data, callback) {
      *   console.log('recieved the following data:', data);
      *   callback('Thank you very much for your data');
      * });
@@ -181,8 +183,8 @@
      * var listener = function () {
      *   console.log('recieved the following arguments:', arguments);
      * }
-     * eventLine.on(event, listener);
-     * eventLine.off(event, listener);
+     * eventFrame.on(event, listener);
+     * eventFrame.off(event, listener);
      * @description Unregister a `listener` that handles an incoming `event`.
      * @param {string} event The name of the event to remove a listener from.
      * @param {function} listener The function that handles the incoming event.
@@ -208,18 +210,18 @@
      * @instance
      * @example
      * // Emit an event with no arguments
-     * eventLine.emit('just letting you know');
+     * eventFrame.emit('just letting you know');
      * @example
      * // Emit an event with some data
-     * eventline.emit('My name is', name);
+     * eventFrame.emit('My name is', name);
      * @example
      * // Emit an event with a callback
-     * eventline.emit('What did you have for dinner?', function (item) {
+     * eventFrame.emit('What did you have for dinner?', function (item) {
      *   console.log('They had', item, 'for dinner');
      * });
      * @example
      * // Emit an event with data and a callback
-     * eventline.emit('Here is my key. Can I have yours?', myFakeKey, function (theirKey) {
+     * eventFrame.emit('Here is my key. Can I have yours?', myFakeKey, function (theirKey) {
      *   console.log('Muahah, my key was fake. Here is theirs:', theirKey);
      * });
      * @description emit an `event`, optionally with data.
@@ -259,5 +261,5 @@
     start()
   }
 
-  return EventFrame
+  return exports
 })

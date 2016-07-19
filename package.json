@@ -4,6 +4,7 @@
   "description": "An event abstraction over browser window messaging.",
   "main": "index.js",
   "scripts": {
+    "jsdoc": "jsdoc -c jsdoc.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,6 +23,7 @@
   },
   "homepage": "https://github.com/mrak/event-frame#readme",
   "devDependencies": {
+    "jsdoc": "^3.4.0",
     "standard": "*"
   }
 }
