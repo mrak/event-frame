@@ -1,0 +1,20 @@
+{
+  "name": "event-frame",
+  "description": "An event abstraction over browser window messaging.",
+  "main": "index.js",
+  "moduleType": ["globals", "amd", "node"],
+  "license": "MIT",
+  "keywords": [
+    "postMessage",
+    "browser",
+    "events"
+  ],
+  "authors": [
+    "Eric Mrak <mail@ericmrak.info>"
+  ],
+  "homepage": "https://github.com/mrak/event-frame#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrak/event-frame.git"
+  }
+}
