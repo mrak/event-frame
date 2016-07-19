@@ -98,7 +98,7 @@ eventFrame.stop();
 
 ### on
 
-`on(event: string, [listener: function]) -> EventFrame`
+`on(event: string, listener: function) -> EventFrame`
 
 Register a `listener` to handle an incoming `event`.
 
@@ -123,7 +123,7 @@ eventFrame.on('myEventName', function (data, callback) {
 
 ### off
 
-`off(event: string, [listener: function]) -> EventFrame`
+`off(event: string, listener: function) -> EventFrame`
 
 Unregister a `listener` that handles an incoming `event`. The `event` and
 `listener` must exactly match those used with `on`.
