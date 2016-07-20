@@ -155,7 +155,7 @@ Returns the `EventFrame` instance for chaining.
 | Parameter  | Type       | Description  |
 | ---------- | ---------- | ---------------------------------------------------- |
 | `event`    | `string`   | The name of the event to emit.                       |
-| `argument` | `any`      | Zero or more arguments to pass along with the event. |
+| `...arg`   | `any`      | Zero or more arguments to pass along with the event. |
 | `callback` | `function` | A callback that can be invoked from the listener on the receiving side of the event.<br>The callback must be the last parameter given. |
 
 ```javascript
