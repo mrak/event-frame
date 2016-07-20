@@ -1,6 +1,6 @@
 {
   "name": "event-frame",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "An event abstraction over browser window messaging.",
   "scripts": {
     "lint": "standard index.js",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/mrak/event-frame#readme",
   "devDependencies": {
+    "bower": "^1.7.9",
     "standard": "*"
   }
 }
