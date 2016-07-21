@@ -1,9 +1,71 @@
 EventFrame
 ==========
 
-An event abstraction over browser window messaging.
-
 `EventFrame` serves as an event-emitter between the current page and another iframe or window.
+
+<table>
+  <thead>
+    <tr>
+      <th>Main Page</th>
+      <th>Child Frame</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <pre lang="javascript">
+var EventFrame = require('event-frame');
+
+var iframe = document.createElement('iframe');
+iframe.src = 'https://child.example.com';
+
+var bus = new EventFrame({
+  frame: iframe,
+  origin: 'https://child.example.com'
+});
+
+bus.on('ready', function (message, callback) {
+  console.log('child ready: "', message, '"');
+  callback('Read and received.');
+});
+        </pre>
+      </td>
+      <td>
+        <pre lang="javascript">
+var EventFrame = require('event-frame');
+
+var bus = new EventFrame({
+  frame: global.parent,
+  origin: 'https://main.example.com'
+});
+
+bus.emit(
+  'ready',
+  'Ready for action. Do you copy?',
+  function (message) {
+    console.log('Main page replied: "', message);
+  }
+);
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Contents
+
+* [Installation](#installation)
+* [Loading](#loading)
+  * [CommonJS](#commonjs)
+  * [AMD](#amd)
+  * [Browser](#browser)
+* [API](#api)
+  * [constructor](#constructor)
+  * [start](#start)
+  * [stop](#stop)
+  * [on](#on)
+  * [off](#off)
+  * [emit](#emit)
 
 ## Installation
 
